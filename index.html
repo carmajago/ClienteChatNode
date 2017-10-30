@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <script src="/socket.io/socket.io.js"></script>
+   
+</head>
+<body>
+    
+
+    <textarea id="entry"></textarea>
+    <button onclick="SendMessage()">submit</button>
+</body>
+
+
+</html>
+
+<script type="text/javascript">
+    
+      var socket = io('http://localhost');
+  
+    //1. 
+
+    socket.on('Ping', function (data) {
+
+         document.getElementById("entry").value=data;
+    });
+
+   function SendMessage(){
+    var entry= document.getElementById("entry").value;
+    socket.emit('Pong',entry);
+}
+
+function arrayBufferToString(buffer){
+    var arr = new Uint8Array(buffer);
+    var str = String.fromCharCode.apply(String, arr);
+    if(/[\u0080-\uffff]/.test(str)){
+        throw new Error("this string seems to contain (still encoded) multibytes");
+    }
+    return str;
+}
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--
+     //socket.emit('Pong');
+
+socket.on('WriteNumber', function (data) {
+    document.getElementById('testArea').innerHTML += data + "<br />";
+});
+
+socket.on('WriteString', function (data) {
+    document.getElementById('testArea').innerHTML += data + "<br />";
+});
+
+socket.on('WriteObject', function (data) {
+    document.getElementById('testArea').innerHTML += data.myObjectsKey + "<br />";
+});
+
+socket.on('CreateAlert', function (data) {
+    alert(data);
+});
+
+socket.on('WriteObject', function (data) {
+    document.getElementById('testArea').innerHTML += data.myObjectsKey + "<br />";
+});
+
+socket.on('EvalFunction', function (data) {
+    eval(data);
+});
+
+socket.on('updateCounter', function (data) {
+    document.getElementById('testArea').innerHTML += "my server side counter = " + data + "<br />";
+});
+
+setInterval("sendPing();", 1000);
+function sendPing(e) {
+    socket.emit('ping', { property1: 'this is a string value' });
+}
+socket.on('pong', function (data) {
+    document.getElementById('testArea').innerHTML += "new incoming pong = " + data.property2 + "<br />";
+});
+
+
+-->
